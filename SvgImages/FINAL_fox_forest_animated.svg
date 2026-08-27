@@ -1,0 +1,705 @@
+<svg id="sceneRoot" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <g id="forestBackground">
+
+  <!--
+    ============================================================
+    FOREST BACKGROUND — fully independent from the character.
+    Layers ordered back-to-front. Each layer is its own <g id="...">
+    and can be hidden/shown without affecting any other layer or
+    the character (which will be composited on top in Phase 5).
+    ============================================================
+  -->
+
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCE7C8"/>
+      <stop offset="45%" stop-color="#FBD9A8"/>
+      <stop offset="100%" stop-color="#F3C98A"/>
+    </linearGradient>
+    <linearGradient id="mountainGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C9A8A0"/>
+      <stop offset="100%" stop-color="#B98F82"/>
+    </linearGradient>
+    <linearGradient id="farTreeGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9BAE6E"/>
+      <stop offset="100%" stop-color="#84995A"/>
+    </linearGradient>
+    <linearGradient id="midTreeGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7FA352"/>
+      <stop offset="100%" stop-color="#5F8A3E"/>
+    </linearGradient>
+    <linearGradient id="nearTreeGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5C8A3C"/>
+      <stop offset="100%" stop-color="#436B29"/>
+    </linearGradient>
+    <linearGradient id="groundGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B7D179"/>
+      <stop offset="100%" stop-color="#96BA5C"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF6DD" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFF6DD" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ================= SKY ================= -->
+  <g id="backgroundSky">
+    <rect x="0" y="0" width="1200" height="560" fill="url(#skyGradient)"/>
+    <circle id="sunGlowCircle" cx="960" cy="150" r="220" fill="url(#sunGlow)"/>
+    <circle id="sun" cx="960" cy="150" r="70" fill="#FFF3D6" opacity="0.85"/>
+  </g>
+
+  <!-- ================= LIGHT RAYS ================= -->
+  <g id="lightRays" opacity="0.25">
+    <path d="M960,150 L700,600 L820,600 Z" fill="#FFFFFF"/>
+    <path d="M960,150 L980,600 L1100,600 Z" fill="#FFFFFF"/>
+    <path d="M960,150 L560,650 L660,650 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ================= FAR MOUNTAINS ================= -->
+  <g id="farMountains">
+    <path d="M0,480 L150,340 L280,440 L420,300 L560,460 L700,360 L850,470
+             L980,330 L1200,470 L1200,560 L0,560 Z" fill="url(#mountainGradient)" opacity="0.55"/>
+  </g>
+
+  <!-- ================= FAR TREES (silhouette row) ================= -->
+  <g id="farTrees">
+    <g id="farTreeCluster1">
+      <ellipse cx="120" cy="470" rx="90" ry="70" fill="url(#farTreeGradient)" opacity="0.75"/>
+      <ellipse cx="220" cy="490" rx="110" ry="80" fill="url(#farTreeGradient)" opacity="0.75"/>
+      <ellipse cx="360" cy="475" rx="95" ry="72" fill="url(#farTreeGradient)" opacity="0.75"/>
+    </g>
+    <g id="farTreeCluster2">
+      <ellipse cx="650" cy="485" rx="100" ry="75" fill="url(#farTreeGradient)" opacity="0.75"/>
+      <ellipse cx="820" cy="470" rx="115" ry="82" fill="url(#farTreeGradient)" opacity="0.75"/>
+      <ellipse cx="1000" cy="490" rx="95" ry="70" fill="url(#farTreeGradient)" opacity="0.75"/>
+      <ellipse cx="1130" cy="475" rx="90" ry="68" fill="url(#farTreeGradient)" opacity="0.75"/>
+    </g>
+  </g>
+
+  <!-- ================= MIDDLE TREES ================= -->
+  <g id="middleTrees">
+    <g id="midTreeLeft" transform="translate(90,520)">
+      <rect x="-14" y="0" width="28" height="120" rx="8" fill="#6B4A2C"/>
+      <path d="M-95,0 C-95,-90 -30,-140 0,-140 C 30,-140 95,-90 95,0
+               C 60,-25 -60,-25 -95,0 Z" fill="url(#midTreeGradient)"/>
+      <ellipse cx="-40" cy="-70" rx="45" ry="35" fill="#89B25B" opacity="0.6"/>
+    </g>
+    <g id="midTreeRight" transform="translate(1110,530)">
+      <rect x="-14" y="0" width="28" height="120" rx="8" fill="#6B4A2C"/>
+      <path d="M-100,0 C-100,-95 -35,-150 0,-150 C 35,-150 100,-95 100,0
+               C 65,-28 -65,-28 -100,0 Z" fill="url(#midTreeGradient)"/>
+      <ellipse cx="45" cy="-75" rx="48" ry="36" fill="#89B25B" opacity="0.6"/>
+    </g>
+    <g id="midTreeCenterFar" transform="translate(500,540)">
+      <rect x="-10" y="0" width="20" height="80" rx="6" fill="#6B4A2C"/>
+      <path d="M-70,0 C-70,-70 -25,-110 0,-110 C 25,-110 70,-70 70,0
+               C 45,-18 -45,-18 -70,0 Z" fill="url(#midTreeGradient)"/>
+    </g>
+  </g>
+
+  <!-- ================= NEAR TREES (large foreground framing) ================= -->
+  <g id="nearTrees">
+    <g id="nearTreeLeft" transform="translate(-40,620)">
+      <path d="M0,180 L0,-40 C 0,-40 -30,-30 -30,-100 C -30,-160 20,-220 70,-230
+               C 130,-240 190,-190 185,-120 C 182,-70 150,-40 150,-40
+               L150,180 Z" fill="#6B4A2C"/>
+      <path d="M-90,-10 C-140,-70 -130,-170 -50,-230 C 20,-280 130,-260 170,-190
+               C 210,-120 190,-30 120,10 C 60,45 -40,45 -90,-10 Z"
+            fill="url(#nearTreeGradient)"/>
+      <ellipse cx="-30" cy="-140" rx="55" ry="45" fill="#78A54C" opacity="0.55"/>
+    </g>
+    <g id="nearTreeRight" transform="translate(1240,640)">
+      <path d="M0,170 L0,-40 C0,-40 30,-30 30,-100 C30,-165 -25,-225 -75,-235
+               C-135,-245 -195,-195 -190,-125 C-187,-72 -155,-40 -155,-40
+               L-155,170 Z" fill="#6B4A2C"/>
+      <path d="M95,-10 C150,-72 138,-175 55,-235 C-20,-285 -135,-263 -175,-192
+               C-215,-120 -195,-28 -122,12 C-60,48 45,48 95,-10 Z"
+            fill="url(#nearTreeGradient)"/>
+      <ellipse cx="40" cy="-145" rx="58" ry="47" fill="#78A54C" opacity="0.55"/>
+    </g>
+  </g>
+
+  <!-- ================= ATMOSPHERIC FOG LAYERS ================= -->
+  <g id="fogLayers" opacity="0.35">
+    <ellipse cx="300" cy="520" rx="260" ry="30" fill="#FFFFFF"/>
+    <ellipse cx="850" cy="530" rx="300" ry="32" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ================= GROUND ================= -->
+  <g id="ground">
+    <path d="M0,560 C 200,540 1000,540 1200,560 L1200,800 L0,800 Z" fill="url(#groundGradient)"/>
+  </g>
+
+  <!-- ================= ROCKS ================= -->
+  <g id="rocks">
+    <g id="rockCluster1" transform="translate(160,660)">
+      <ellipse cx="0" cy="10" rx="55" ry="30" fill="#8C8C82"/>
+      <ellipse cx="45" cy="18" rx="32" ry="20" fill="#9C9C90"/>
+      <path d="M-40,10 Q-20,-18 10,-6 Q30,-2 25,14 Z" fill="#A8A89C" opacity="0.6"/>
+    </g>
+    <g id="rockCluster2" transform="translate(980,680)">
+      <ellipse cx="0" cy="8" rx="48" ry="26" fill="#8C8C82"/>
+      <ellipse cx="-38" cy="14" rx="26" ry="16" fill="#9C9C90"/>
+    </g>
+  </g>
+
+  <!-- ================= BUSHES ================= -->
+  <g id="bushes">
+    <g id="bushCluster1" transform="translate(240,640)">
+      <ellipse cx="0" cy="0" rx="70" ry="45" fill="#6E9C46"/>
+      <ellipse cx="-45" cy="10" rx="45" ry="32" fill="#7BAA52"/>
+      <ellipse cx="50" cy="12" rx="42" ry="30" fill="#7BAA52"/>
+    </g>
+    <g id="bushCluster2" transform="translate(900,650)">
+      <ellipse cx="0" cy="0" rx="75" ry="48" fill="#6E9C46"/>
+      <ellipse cx="55" cy="10" rx="46" ry="32" fill="#7BAA52"/>
+      <ellipse cx="-48" cy="14" rx="40" ry="28" fill="#7BAA52"/>
+    </g>
+  </g>
+
+  <!-- ================= FLOWERS ================= -->
+  <g id="flowers">
+    <g id="flowerCluster1" transform="translate(360,700)">
+      <g id="flower1">
+        <circle cx="0" cy="-8" r="6" fill="#F3B6C6"/><circle cx="7" cy="-2" r="6" fill="#F3B6C6"/>
+        <circle cx="4" cy="7" r="6" fill="#F3B6C6"/><circle cx="-5" cy="6" r="6" fill="#F3B6C6"/>
+        <circle cx="-7" cy="-3" r="6" fill="#F3B6C6"/><circle cx="0" cy="0" r="5" fill="#F5D06A"/>
+      </g>
+      <g id="flower2" transform="translate(40,15)">
+        <circle cx="0" cy="-6" r="5" fill="#F7EAD1"/><circle cx="6" cy="-1" r="5" fill="#F7EAD1"/>
+        <circle cx="3" cy="6" r="5" fill="#F7EAD1"/><circle cx="-4" cy="5" r="5" fill="#F7EAD1"/>
+        <circle cx="-6" cy="-2" r="5" fill="#F7EAD1"/><circle cx="0" cy="0" r="4" fill="#F5D06A"/>
+      </g>
+    </g>
+    <g id="flowerCluster2" transform="translate(820,715)">
+      <g id="flower3">
+        <circle cx="0" cy="-8" r="6" fill="#C9B7E8"/><circle cx="7" cy="-2" r="6" fill="#C9B7E8"/>
+        <circle cx="4" cy="7" r="6" fill="#C9B7E8"/><circle cx="-5" cy="6" r="6" fill="#C9B7E8"/>
+        <circle cx="-7" cy="-3" r="6" fill="#C9B7E8"/><circle cx="0" cy="0" r="5" fill="#F5D06A"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= FOREGROUND PLANTS (frame corners) ================= -->
+  <g id="foregroundPlants">
+    <g id="leafClusterLeft" transform="translate(10,800)">
+      <path d="M0,0 C10,-90 70,-140 130,-150 C 90,-100 60,-40 60,0 Z" fill="#3F6B28"/>
+      <path d="M0,0 C0,-70 30,-120 70,-140 C 50,-95 40,-40 40,0 Z" fill="#4F7E32"/>
+    </g>
+    <g id="leafClusterRight" transform="translate(1200,800)">
+      <path d="M0,0 C-10,-90 -70,-140 -130,-150 C -90,-100 -60,-40 -60,0 Z" fill="#3F6B28"/>
+      <path d="M0,0 C0,-70 -30,-120 -70,-140 C -50,-95 -40,-40 -40,0 Z" fill="#4F7E32"/>
+    </g>
+  </g>
+
+  <!-- ================= GRASS ================= -->
+  <g id="grass">
+    <g id="grassRow1">
+      <path d="M0,760 Q10,730 20,760 Q30,725 40,760 Q50,732 60,760 Q70,728 80,760
+               Q90,730 100,760 L100,780 L0,780 Z" fill="#5C8A3C" transform="translate(60,0)"/>
+      <path d="M0,760 Q10,730 20,760 Q30,725 40,760 Q50,732 60,760 Q70,728 80,760
+               Q90,730 100,760 L100,780 L0,780 Z" fill="#5C8A3C" transform="translate(480,0)"/>
+      <path d="M0,760 Q10,730 20,760 Q30,725 40,760 Q50,732 60,760 Q70,728 80,760
+               Q90,730 100,760 L100,780 L0,780 Z" fill="#5C8A3C" transform="translate(1020,0)"/>
+    </g>
+  </g>
+
+  <!-- ================= GROUND SHADOW (for character placement) ================= -->
+  <g id="groundShadow">
+    <ellipse cx="600" cy="742" rx="150" ry="20" fill="#000000" opacity="0.16"/>
+  </g>
+
+
+  </g>
+
+  <!-- Wrapping group whose transform is driven ENTIRELY by JavaScript
+       (no SMIL, no CSS animation) to move the whole, fully-intact
+       character from right to left. -->
+  <g id="walkMotionGroup">
+    <g id="characterPlacement" transform="translate(390,140) scale(0.7)">
+
+  <!--
+    ============================================================
+    PHASE 1 — BASE RIG (Skeleton Stage)
+    Fox character, standing upright, two arms, two legs, tail.
+    All parts are grouped with a local pivot (translate) so that
+    rotation can later be applied directly to each <g> without
+    recalculating transform-origin.
+    Flat placeholder colors only — fur, gradients, lighting and
+    facial detail are added in Phases 2 & 3.
+    ============================================================
+  -->
+
+  <defs>
+    <linearGradient id="furMain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3A160"/>
+      <stop offset="55%" stop-color="#E2823C"/>
+      <stop offset="100%" stop-color="#B9631D"/>
+    </linearGradient>
+    <linearGradient id="furMainShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#DE8C4C"/>
+      <stop offset="55%" stop-color="#C96A24"/>
+      <stop offset="100%" stop-color="#9C5116"/>
+    </linearGradient>
+    <radialGradient id="headGradient" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#F7AD68"/>
+      <stop offset="60%" stop-color="#E2823C"/>
+      <stop offset="100%" stop-color="#B05F1B"/>
+    </radialGradient>
+    <linearGradient id="bellyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF7"/>
+      <stop offset="100%" stop-color="#F1E1C3"/>
+    </linearGradient>
+    <linearGradient id="pawGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5A4130"/>
+      <stop offset="100%" stop-color="#2A1C12"/>
+    </linearGradient>
+    <linearGradient id="earInnerGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0CDA8"/>
+      <stop offset="100%" stop-color="#D9A67E"/>
+    </linearGradient>
+    <radialGradient id="noseGradient" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#4A342A"/>
+      <stop offset="100%" stop-color="#120B07"/>
+    </radialGradient>
+    <radialGradient id="eyeGradient" cx="32%" cy="26%" r="75%">
+      <stop offset="0%" stop-color="#5C3A22"/>
+      <stop offset="100%" stop-color="#1D1109"/>
+    </radialGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softBlurSmall" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- ============ GROUND SHADOW ============ -->
+  <g id="shadow">
+    <ellipse cx="300" cy="860" rx="95" ry="16" fill="#000000" opacity="0.22"/>
+  </g>
+
+  <!-- ============ CHARACTER ROOT ============ -->
+  <g id="character" filter="url(#softShadow)">
+
+    <!-- ================= PELVIS (root pivot for legs & tail) ================= -->
+    <g id="pelvis" transform="translate(300,560)">
+      <ellipse cx="0" cy="20" rx="55" ry="45" fill="url(#furMain)"/>
+
+      <!-- TAIL -->
+      <g id="tail" transform="translate(-45,30) rotate(15)">
+        <path d="M0,0
+                 C -40,10 -80,-10 -110,40
+                 C -130,75 -110,120 -70,130
+                 C -95,110 -95,80 -75,55
+                 C -55,30 -25,25 0,20 Z"
+              fill="url(#furMain)"/>
+        <g id="furTextureTail" opacity="0.4" stroke="#9C5116" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M-30,30 L-38,22"/>
+          <path d="M-55,55 L-64,48"/>
+          <path d="M-80,80 L-90,74"/>
+        </g>
+        <path d="M-95,95 C -100,110 -95,122 -78,128 C -90,118 -90,105 -82,96 Z" fill="#FFFFFF"/>
+      </g>
+
+      <!-- LEFT LEG CHAIN -->
+      <g id="leftUpperLeg" transform="translate(-30,25) rotate(2)">
+        <rect x="-20" y="0" width="40" height="120" rx="20" fill="url(#furMain)"/>
+        <g id="leftLowerLeg" transform="translate(0,118) rotate(-1)">
+          <rect x="-16" y="0" width="32" height="115" rx="16" fill="url(#furMain)"/>
+          <g id="leftFoot" transform="translate(0,112)">
+            <ellipse cx="6" cy="18" rx="34" ry="16" fill="url(#pawGradient)"/>
+            <g id="leftToes" transform="translate(0,26)">
+              <ellipse cx="-14" cy="0" rx="7" ry="6" fill="url(#pawGradient)"/>
+              <ellipse cx="2" cy="2" rx="7" ry="6" fill="url(#pawGradient)"/>
+              <ellipse cx="18" cy="0" rx="7" ry="6" fill="url(#pawGradient)"/>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- RIGHT LEG CHAIN -->
+      <g id="rightUpperLeg" transform="translate(30,25) rotate(-2)">
+        <rect x="-20" y="0" width="40" height="120" rx="20" fill="url(#furMainShade)"/>
+        <g id="rightLowerLeg" transform="translate(0,118) rotate(1)">
+          <rect x="-16" y="0" width="32" height="115" rx="16" fill="url(#furMainShade)"/>
+          <g id="rightFoot" transform="translate(0,112)">
+            <ellipse cx="-6" cy="18" rx="34" ry="16" fill="url(#pawGradient)"/>
+            <g id="rightToes" transform="translate(0,26)">
+              <ellipse cx="-18" cy="0" rx="7" ry="6" fill="url(#pawGradient)"/>
+              <ellipse cx="-2" cy="2" rx="7" ry="6" fill="url(#pawGradient)"/>
+              <ellipse cx="14" cy="0" rx="7" ry="6" fill="url(#pawGradient)"/>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- ================= TORSO (attaches upward from pelvis) ================= -->
+      <g id="torso" transform="translate(0,-20)">
+        <path d="M-70,60 C-75,0 -65,-90 0,-95 C65,-90 75,0 70,60
+                 C 60,85 -60,85 -70,60 Z" fill="url(#headGradient)"/>
+        <path id="rimLightTorso" d="M-68,20 C-70,-30 -60,-75 -20,-90" stroke="#FBD3A0"
+              stroke-width="4" fill="none" opacity="0.35" stroke-linecap="round"/>
+        <g id="furTextureTorso" opacity="0.4" stroke="#9C5116" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M-55,40 L-62,52"/>
+          <path d="M-40,58 L-46,70"/>
+          <path d="M40,58 L46,70"/>
+          <path d="M55,40 L62,52"/>
+        </g>
+        <!-- chest / belly patch -->
+        <ellipse id="bellyPatch" cx="0" cy="10" rx="32" ry="55" fill="url(#bellyGradient)"/>
+
+        <!-- LEFT ARM CHAIN (shoulder pivot) -->
+        <g id="leftShoulder" transform="translate(-78,-55)">
+          <g id="leftUpperArm" transform="rotate(8)">
+            <rect x="-16" y="0" width="32" height="105" rx="16" fill="url(#furMain)"/>
+            <g id="leftForearm" transform="translate(0,102) rotate(-4)">
+              <rect x="-14" y="0" width="28" height="95" rx="14" fill="url(#furMain)"/>
+              <g id="leftHand" transform="translate(0,92)">
+                <ellipse cx="0" cy="12" rx="20" ry="18" fill="url(#pawGradient)"/>
+                <g id="leftThumb" transform="translate(-20,4) rotate(-30)">
+                  <ellipse cx="0" cy="0" rx="6" ry="12" fill="url(#pawGradient)"/>
+                </g>
+                <g id="leftFinger1" transform="translate(-10,26)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+                <g id="leftFinger2" transform="translate(2,29)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+                <g id="leftFinger3" transform="translate(14,26)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <!-- RIGHT ARM CHAIN (shoulder pivot) -->
+        <g id="rightShoulder" transform="translate(78,-55)">
+          <g id="rightUpperArm" transform="rotate(-8)">
+            <rect x="-16" y="0" width="32" height="105" rx="16" fill="url(#furMainShade)"/>
+            <g id="rightForearm" transform="translate(0,102) rotate(4)">
+              <rect x="-14" y="0" width="28" height="95" rx="14" fill="url(#furMainShade)"/>
+              <g id="rightHand" transform="translate(0,92)">
+                <ellipse cx="0" cy="12" rx="20" ry="18" fill="url(#pawGradient)"/>
+                <g id="rightThumb" transform="translate(20,4) rotate(30)">
+                  <ellipse cx="0" cy="0" rx="6" ry="12" fill="url(#pawGradient)"/>
+                </g>
+                <g id="rightFinger1" transform="translate(10,26)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+                <g id="rightFinger2" transform="translate(-2,29)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+                <g id="rightFinger3" transform="translate(-14,26)">
+                  <ellipse cx="0" cy="0" rx="5" ry="11" fill="url(#pawGradient)"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <!-- ================= NECK ================= -->
+        <g id="neck" transform="translate(0,-95)">
+          <rect x="-24" y="-20" width="48" height="40" fill="url(#furMain)"/>
+
+          <!-- ================= HEAD ================= -->
+          <g id="head" transform="translate(0,-70)">
+
+            <!-- base skull / muzzle -->
+            <ellipse cx="0" cy="0" rx="72" ry="65" fill="url(#headGradient)"/>
+            <path id="rimLightHead" d="M-55,-35 C-65,-10 -65,20 -50,42" stroke="#FCDBAE"
+                  stroke-width="4" fill="none" opacity="0.4" stroke-linecap="round"/>
+            <g id="furTextureHead" opacity="0.35" stroke="#B05F1B" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <path d="M-45,-10 L-52,-2"/>
+              <path d="M-48,10 L-56,16"/>
+              <path d="M45,-10 L52,-2"/>
+              <path d="M48,10 L56,16"/>
+            </g>
+            <path id="muzzle" d="M-30,20 C-20,55 20,55 30,20 C 34,45 10,68 0,68
+                                  C-10,68 -34,45 -30,20 Z" fill="url(#bellyGradient)"/>
+
+            <!-- hair tuft -->
+            <g id="hair" transform="translate(0,-58)">
+              <path d="M-14,10 L-4,-14 L4,4 L12,-16 L18,8" stroke="#B85A1E" stroke-width="6"
+                    fill="none" stroke-linecap="round"/>
+            </g>
+
+            <!-- ears -->
+            <g id="leftEar" transform="translate(-48,-48) rotate(-18)">
+              <path d="M0,0 L-22,-58 L26,-14 Z" fill="url(#furMain)"/>
+              <path d="M-2,-8 L-14,-42 L14,-14 Z" fill="url(#earInnerGradient)"/>
+            </g>
+            <g id="rightEar" transform="translate(48,-48) rotate(18)">
+              <path d="M0,0 L22,-58 L-26,-14 Z" fill="url(#furMainShade)"/>
+              <path d="M2,-8 L14,-42 L-14,-14 Z" fill="url(#earInnerGradient)"/>
+            </g>
+
+            <!-- eyebrows -->
+            <g id="leftEyebrow" transform="translate(-28,-22)">
+              <path d="M-14,0 Q0,-8 14,0" stroke="#7A3F14" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </g>
+            <g id="rightEyebrow" transform="translate(28,-22)">
+              <path d="M-14,0 Q0,-8 14,0" stroke="#7A3F14" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <!-- eyes -->
+            <g id="leftEye" transform="translate(-26,-6)">
+              <ellipse id="leftEyeball" cx="0" cy="0" rx="13" ry="15" fill="#FFFFFF"/>
+              <circle id="leftPupil" cx="0" cy="2" r="7" fill="url(#eyeGradient)"/>
+              <g id="leftUpperEyelid" transform="translate(0,-15)">
+                <path d="M-13,0 Q0,-2 13,0 L13,4 Q0,-1 -13,4 Z" fill="url(#headGradient)"/>
+              </g>
+              <g id="leftLowerEyelid" transform="translate(0,15)">
+                <path d="M-13,0 Q0,4 13,0" stroke="#B85A1E" stroke-width="2" fill="none"/>
+              </g>
+            </g>
+            <g id="rightEye" transform="translate(26,-6)">
+              <ellipse id="rightEyeball" cx="0" cy="0" rx="13" ry="15" fill="#FFFFFF"/>
+              <circle id="rightPupil" cx="0" cy="2" r="7" fill="url(#eyeGradient)"/>
+              <g id="rightUpperEyelid" transform="translate(0,-15)">
+                <path d="M-13,0 Q0,-2 13,0 L13,4 Q0,-1 -13,4 Z" fill="url(#headGradient)"/>
+              </g>
+              <g id="rightLowerEyelid" transform="translate(0,15)">
+                <path d="M-13,0 Q0,4 13,0" stroke="#B85A1E" stroke-width="2" fill="none"/>
+              </g>
+            </g>
+
+            <!-- nose -->
+            <g id="nose" transform="translate(0,26)">
+              <path d="M-9,0 Q0,10 9,0 Q4,-6 0,-6 Q-4,-6 -9,0 Z" fill="url(#noseGradient)"/>
+            </g>
+
+            <!-- cheeks -->
+            <g id="leftCheek" transform="translate(-38,18)">
+              <ellipse cx="0" cy="0" rx="10" ry="7" fill="#F2A671" opacity="0.55"/>
+            </g>
+            <g id="rightCheek" transform="translate(38,18)">
+              <ellipse cx="0" cy="0" rx="10" ry="7" fill="#F2A671" opacity="0.55"/>
+            </g>
+
+            <!-- jaw / mouth -->
+            <g id="jaw" transform="translate(0,42)">
+              <g id="mouth">
+                <path id="upperLip" d="M-16,0 Q0,10 16,0" stroke="#241812" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path id="lowerLip" d="M-10,4 Q0,12 10,4" stroke="#241812" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <g id="teeth" transform="translate(0,4)">
+                  <path d="M-8,0 L-8,6 L-2,6 L-2,0 Z" fill="#FFFFFF"/>
+                  <path d="M2,0 L2,6 L8,6 L8,0 Z" fill="#FFFFFF"/>
+                </g>
+                <g id="tongue" transform="translate(0,8)" opacity="0">
+                  <ellipse cx="0" cy="0" rx="8" ry="5" fill="#C9576B"/>
+                </g>
+
+                <!-- CHICKEN HELD IN MOUTH -->
+                <g id="chickenInMouth" transform="translate(20,8) rotate(18) scale(0.62)">
+                  <g id="chickenLegs">
+                    <path d="M-5,30 L-7,46" stroke="#E8A23A" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M6,31 L9,47" stroke="#E8A23A" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M-10,46 L-4,46 M-7,46 L-4,50 M-7,46 L-9,50" stroke="#E8A23A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <path d="M5,47 L11,47 M9,47 L9,51 M9,47 L12,51" stroke="#E8A23A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                  </g>
+                  <path id="chickenTailFeathers" d="M9,-14 L20,-23 L13,-8 L22,-13 L11,2 Z" fill="#E8B84B"/>
+                  <ellipse id="chickenBody" cx="0" cy="10" rx="17" ry="22" fill="#F7EFE0"/>
+                  <path id="chickenWing" d="M-14,-2 C-22,6 -20,20 -8,25 C-14,13 -12,4 -14,-2 Z" fill="#E9D8BB"/>
+                  <circle id="chickenHead" cx="2" cy="-19" r="11" fill="#F7EFE0"/>
+                  <path id="chickenComb" d="M-4,-29 Q-2,-37 2,-29 Q4,-39 8,-29 Q10,-35 12,-28"
+                        fill="none" stroke="#D6483B" stroke-width="4" stroke-linecap="round"/>
+                  <path id="chickenBeak" d="M11,-18 L21,-15 L11,-12 Z" fill="#F2B23A"/>
+                  <circle id="chickenEye" cx="4" cy="-20" r="2" fill="#241812"/>
+                </g>
+              </g>
+            </g>
+
+          </g><!-- /head -->
+        </g><!-- /neck -->
+      </g><!-- /torso -->
+    </g><!-- /pelvis -->
+  </g><!-- /character -->
+
+    </g>
+  </g>
+
+  <!-- ================= BUILT-IN PLAYER CONTROLS ================= -->
+  <g id="uiControls" transform="translate(20,760)">
+    <rect id="playPauseBtn" x="0" y="0" width="90" height="30" rx="8" fill="#00000066" style="cursor:pointer"/>
+    <text id="playPauseLabel" x="45" y="20" text-anchor="middle" fill="#FFFFFF"
+          font-family="Arial, sans-serif" font-size="14" style="cursor:pointer; user-select:none;">Pause</text>
+    <rect id="seekTrack" x="110" y="10" width="1050" height="8" rx="4" fill="#FFFFFF55" style="cursor:pointer"/>
+    <rect id="seekFill" x="110" y="10" width="0" height="8" rx="4" fill="#FFFFFFCC" pointer-events="none"/>
+    <circle id="seekHandle" cx="110" cy="14" r="9" fill="#FFFFFF" stroke="#00000055" stroke-width="1" style="cursor:pointer"/>
+  </g>
+
+
+  <script type="text/javascript"><![CDATA[
+  (function () {
+    "use strict";
+
+    // ===================== TIMELINE CONSTANTS =====================
+    var DURATION = 6000;      // total loop duration, ms
+    var STEP_PERIOD = 800;    // one leg-swing cycle, ms
+    var TAIL_PERIOD = 900;    // tail wag cycle, ms
+    var X_START = 650;
+    var X_END = -850;
+    var TRACK_X = 110;
+    var TRACK_W = 1050;
+
+    // ===================== STATE =====================
+    var currentTime = 0;      // ms, always within [0, DURATION)
+    var playing = false;
+    var rafId = null;
+    var lastTs = null;
+
+    function byId(id) { return document.getElementById(id); }
+
+    function setTransform(id, str) {
+      var node = byId(id);
+      if (node) node.setAttribute('transform', str);
+    }
+
+    // Pure function of time -> full character pose.
+    // Same t always yields the same pose, so seeking never needs to "replay".
+    function render(t) {
+      currentTime = t;
+
+      var phase = (t % STEP_PERIOD) / STEP_PERIOD * 2 * Math.PI;
+      var legSwing = 18 * Math.sin(phase);
+      var armSwing = 20 * Math.sin(phase);
+      var bob = 5 * Math.abs(Math.sin(phase));
+
+      var tailPhase = (t % TAIL_PERIOD) / TAIL_PERIOD * 2 * Math.PI;
+      var tailWag = 12 * Math.sin(tailPhase);
+
+      var progress = DURATION > 0 ? (t / DURATION) : 0;
+      var xOffset = X_START + (X_END - X_START) * progress;
+
+      setTransform('walkMotionGroup', 'translate(' + xOffset.toFixed(2) + ',0)');
+      setTransform('leftUpperLeg', 'translate(-30,25) rotate(' + (2 + legSwing).toFixed(2) + ')');
+      setTransform('rightUpperLeg', 'translate(30,25) rotate(' + (-2 - legSwing).toFixed(2) + ')');
+      setTransform('leftUpperArm', 'rotate(' + (8 - armSwing).toFixed(2) + ')');
+      setTransform('rightUpperArm', 'rotate(' + (-8 + armSwing).toFixed(2) + ')');
+      setTransform('tail', 'translate(-45,30) rotate(' + (15 + tailWag).toFixed(2) + ')');
+      setTransform('torso', 'translate(0,' + (-20 - bob).toFixed(2) + ')');
+
+      updateUI(progress);
+    }
+
+    function updateUI(progress) {
+      var fill = byId('seekFill');
+      var handle = byId('seekHandle');
+      if (fill) fill.setAttribute('width', Math.max(0, TRACK_W * progress).toFixed(2));
+      if (handle) handle.setAttribute('cx', (TRACK_X + TRACK_W * progress).toFixed(2));
+      var label = byId('playPauseLabel');
+      if (label) label.textContent = playing ? 'Pause' : 'Play';
+    }
+
+    function loop(now) {
+      if (!playing) return;
+      if (lastTs === null) lastTs = now;
+      var dt = now - lastTs;
+      lastTs = now;
+      var t = (currentTime + dt) % DURATION;
+      render(t);
+      rafId = window.requestAnimationFrame(loop);
+    }
+
+    // ===================== PUBLIC API =====================
+    function play() {
+      if (playing) return;
+      playing = true;
+      lastTs = null;
+      rafId = window.requestAnimationFrame(loop);
+    }
+
+    function pause() {
+      playing = false;
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      render(currentTime);
+    }
+
+    function resume() {
+      play();
+    }
+
+    function seek(progress) {
+      progress = Math.min(1, Math.max(0, progress));
+      render(progress * DURATION);
+    }
+
+    function setTime(ms) {
+      ms = Math.min(DURATION, Math.max(0, ms));
+      render(ms);
+    }
+
+    function getTime() { return currentTime; }
+    function getDuration() { return DURATION; }
+    function isPlaying() { return playing; }
+
+    window.CharacterPlayer = {
+      play: play,
+      pause: pause,
+      resume: resume,
+      seek: seek,
+      setTime: setTime,
+      getTime: getTime,
+      getDuration: getDuration,
+      isPlaying: isPlaying
+    };
+
+    // ===================== BUILT-IN UI (optional convenience) =====================
+    function attachUI() {
+      var svgRoot = document.getElementById('sceneRoot') || document.documentElement;
+
+      function toggle() {
+        if (isPlaying()) { pause(); } else { resume(); }
+      }
+
+      var btn = byId('playPauseBtn');
+      var label = byId('playPauseLabel');
+      if (btn) btn.addEventListener('pointerdown', toggle);
+      if (label) label.addEventListener('pointerdown', toggle);
+
+      var dragging = false;
+
+      function seekFromClientX(clientX) {
+        var pt = svgRoot.createSVGPoint();
+        pt.x = clientX;
+        pt.y = 0;
+        var ctm = svgRoot.getScreenCTM();
+        if (!ctm) return;
+        var loc = pt.matrixTransform(ctm.inverse());
+        var progress = (loc.x - TRACK_X) / TRACK_W;
+        seek(progress);
+      }
+
+      var track = byId('seekTrack');
+      var handle = byId('seekHandle');
+      if (track) {
+        track.addEventListener('pointerdown', function (e) {
+          dragging = true;
+          seekFromClientX(e.clientX);
+        });
+      }
+      if (handle) {
+        handle.addEventListener('pointerdown', function (e) {
+          dragging = true;
+          e.stopPropagation();
+        });
+      }
+      window.addEventListener('pointermove', function (e) {
+        if (dragging) seekFromClientX(e.clientX);
+      });
+      window.addEventListener('pointerup', function () { dragging = false; });
+    }
+
+    attachUI();
+    render(0);
+    play();
+  })();
+  ]]></script>
+
+</svg>
